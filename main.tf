@@ -15,7 +15,7 @@ variable "server" {
   description = "The mapping of servername to server Data Center"
   type = "map"
   default = {
-    "jl" = "nbg1"
+    "jh" = "nbg1"
   }
 }
 variable "server_type" {
