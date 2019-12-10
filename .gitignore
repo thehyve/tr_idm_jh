@@ -1,0 +1,9 @@
+**.swp
+**.retry
+**.tfstate*
+**.tfvars*
+.terraform
+inventory.yml
+vars.sh
+var*.yml
+backend.hcl
