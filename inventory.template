@@ -1,0 +1,26 @@
+---
+all:
+  hosts:
+%{ for host in hosts ~}
+    ${host.name}.${domain}:
+      ansible_host: "${host.ipv4_address}"
+      vol_id: "${volumes[host.name].id}"
+%{ endfor ~}
+  children:
+    ipaclients:
+      hosts:
+%{ for host in hosts ~}
+        ${host.name}.${domain}:
+%{ endfor ~}
+      vars:
+        ipaclient_domain: "${domain}"
+        ipaclient_realm: "${upper(domain)}"
+        ipaclient_mkhomedir: "yes"
+        ipaclient_force_join: "yes"
+        ipaclient_ntp_pool: "pool.ntp.org"
+        ipaclient_ssh_trust_dns: "yes"
+        ipasssd_enable_dns_updates: "yes"
+  vars:
+    ansible_user: "${user}"
+    ansible_ssh_common_args: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+...
