@@ -102,7 +102,7 @@ We need to define some values and map them to each other.
 Example values for a single node:
 ```
 location: nbg1
-host: jh
+host: jupyter
 ```
 To prevent an ocasional selection of an entity we define additional key-value map for all objects:
 ```
@@ -130,11 +130,11 @@ That also allows us to easily recover in case of host failure.
 
 1. Create a volume using `hcloud` utility (*example*):
    ```bash
-   hcloud volume create --location nbg1 --name jh --size 128
+   hcloud volume create --location nbg1 --name jupyter --size 128
    ```
 2. Add labels to a volume (*example*):
    ```bash
-   hcloud volume add-label VOLUME_ID host=jh
+   hcloud volume add-label VOLUME_ID host=jupyter
    hcloud volume add-label VOLUME_ID object=freeipa
    ```
 
