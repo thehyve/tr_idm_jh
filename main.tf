@@ -99,6 +99,6 @@ resource "null_resource" "inventory" {
     cluster_instance_ids = "${join(",", [ for k, v in var.server: hcloud_server.host[k].id ])}"
   }
   provisioner "local-exec" {
-    command = "echo '${templatefile("inventory.template", { hosts = "${hcloud_server.host}", volumes = "${data.hcloud_volume.vol}", domain = "${var.domain}", user = "${var.remote_user}" })}' > inventory.yml"
+    command = "echo '${templatefile("inventory.template", { hosts = "${hcloud_server.host}", volumes = "${data.hcloud_volume.vol}", domain = "${var.domain}", user = "${var.remote_user}", prv_key = "${var.ssh_key_private}" })}' > inventory.yml"
   }
 }
