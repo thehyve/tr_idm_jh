@@ -213,8 +213,8 @@ There several way to pass these values to our ansible playbook:
    with a following content:
    ```yaml
    ---
-   username: "username"
-   password: "password"
+   ipaadmin_principal: "username"
+   ipaadmin_password: "password"
    ...
    ```
 
