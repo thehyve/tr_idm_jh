@@ -1,0 +1,11 @@
+---
+- hosts: all
+  tasks:
+  - name: Base configuration
+    include_role:
+      name: base
+  - name: Configure IDM client
+    include_role:
+      name: ipaclient
+      # state: present
+...

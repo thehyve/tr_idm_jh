@@ -1,0 +1,12 @@
+---
+- name: format partition
+  filesystem:
+    dev: "/dev/disk/by-id/scsi-0HC_Volume_{{ vol_id }}"
+    fstype: xfs
+- name: mount partition
+  mount:
+    path: /home
+    src: "/dev/disk/by-id/scsi-0HC_Volume_{{ vol_id }}"
+    fstype: xfs
+    state: mounted
+...
