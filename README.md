@@ -87,6 +87,10 @@ Use this [manual](https://community.hetzner.com/tutorials/howto-hcloud-cli) for 
 
 Use this [manual](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) for Ansible installation.
 
+##### Installation of ansible_freeipa collection
+
+Follow [instructions](https://galaxy.ansible.com/freeipa/ansible_freeipa) to install ansible_freeipa collection.
+
 ## Basement
 
 ### Disclosure
