@@ -1,0 +1,4 @@
+---
+- name: install required packages
+  import_tasks: packages.yml
+...

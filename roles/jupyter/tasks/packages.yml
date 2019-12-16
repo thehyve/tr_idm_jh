@@ -1,0 +1,28 @@
+- name: install required packages
+  dnf:
+    name: "{{ item }}"
+    state: present
+  loop:
+  - epel-release
+  - bash-completion
+  - python3-virtualenv
+  - npm
+- name: install jupyter
+  pip:
+    name: jupyterhub
+    state: present
+    virtualenv: /opt/jupyter
+- name: install configurable proxy
+  npm:
+    name: configurable-http-proxy
+    path: /opt/jupyter/lib
+    state: present
+- name: create symlink to npm binaries
+  file:
+    src: "/opt/jupyter/{{ item.filename }}"
+    dest: "/opt/jupyter/{{ item.linkname }}"
+    state: link
+  loop:
+  - { filename: 'lib/node_modules/configurable-http-proxy/bin/configurable-http-proxy', linkname: 'bin/configurable-http-proxy' }
+  - { filename: 'lib/node_modules/npm/bin/npm-cli.js', linkname: 'bin/npm' }
+  - { filename: 'lib/node_modules/npm/bin/npx-cli.js', linkname: 'bin/npx' }

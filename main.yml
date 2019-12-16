@@ -7,5 +7,7 @@
   - name: Configure IDM client
     include_role:
       name: ipaclient
-      # state: present
+  - name: install jupyter
+    include_role:
+      name: jupyter
 ...
