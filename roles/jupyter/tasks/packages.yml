@@ -24,5 +24,3 @@
     state: link
   loop:
   - { filename: 'lib/node_modules/configurable-http-proxy/bin/configurable-http-proxy', linkname: 'bin/configurable-http-proxy' }
-  - { filename: 'lib/node_modules/npm/bin/npm-cli.js', linkname: 'bin/npm' }
-  - { filename: 'lib/node_modules/npm/bin/npx-cli.js', linkname: 'bin/npx' }
