@@ -7,11 +7,15 @@
   - bash-completion
   - python3-virtualenv
   - npm
-- name: install jupyter
+- name: install jupyterhub and jupyterlab
   pip:
-    name: jupyterhub
+    name: "{{ item }}"
     state: present
     virtualenv: /opt/jupyter
+  loop:
+  - jupyterhub
+  - jupyterhub-systemdspawner
+  - jupyterlab
 - name: install configurable proxy
   npm:
     name: configurable-http-proxy
