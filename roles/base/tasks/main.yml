@@ -6,4 +6,6 @@
   import_tasks: hostname.yml
 - name: Configure the disk for home directory
   import_tasks: disk.yml
+- name: Configure firewall
+  import_tasks: firewall.yml
 ...
