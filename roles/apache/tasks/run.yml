@@ -1,0 +1,7 @@
+---
+- name: run apache server
+  systemd:
+    enabled: yes
+    name: httpd
+    state: started
+...

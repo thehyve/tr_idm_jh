@@ -1,0 +1,30 @@
+<VirtualHost *:443>
+  ServerName {{ inventory_hostname }}
+
+  ## Vhost docroot
+  DocumentRoot "/var/www/{{ inventory_hostname }}"
+
+  ## Directories, there should at least be a declaration for /var/www/{{ inventory_hostname }}
+
+  <Directory "/var/www/{{ inventory_hostname }}">
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride None
+    Require all granted
+  </Directory>
+
+  ## Logging
+  ErrorLog "/var/log/httpd/{{ inventory_hostname }} ssl_error_ssl.log"
+  ServerSignature Off
+  CustomLog "/var/log/httpd/{{ inventory_hostname }} ssl_access_ssl.log" combined
+
+  ## Proxy rules
+  ProxyRequests Off
+  ProxyPreserveHost Off
+  ProxyPass / http://127.0.0.1:8000/
+  ProxyPassReverse / http://127.0.0.1:8000/
+
+  ## SSL directives
+  SSLEngine on
+  SSLCertificateFile      "/etc/pki/http/http.crt"
+  SSLCertificateKeyFile   "/etc/pki/http/http.key"
+</VirtualHost>

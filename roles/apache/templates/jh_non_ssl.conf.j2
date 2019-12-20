@@ -1,0 +1,25 @@
+<VirtualHost *:80>
+  ServerName {{ inventory_hostname }}
+
+  ## Vhost docroot
+  DocumentRoot "/var/www/{{ inventory_hostname }}"
+
+  ## Directories, there should at least be a declaration for /var/www/{{ inventory_hostname }}
+
+  <Directory "/var/www/{{ inventory_hostname }}">
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride None
+    Require all granted
+  </Directory>
+
+  ## Logging
+  ErrorLog "/var/log/httpd/{{ inventory_hostname }} non-ssl_error.log"
+  ServerSignature Off
+  CustomLog "/var/log/httpd/{{ inventory_hostname }} non-ssl_access.log" combined
+  ## Rewrite rules
+  RewriteEngine On
+
+  RewriteCond %{REQUEST_URI} !^/\.well\-known/acme\-challenge/
+  RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+</VirtualHost>

@@ -2,4 +2,8 @@
 # tasks file for apache
 - name: Register service IDM and issue certificates
   import_tasks: register.yml
+- name: Configure Apache server
+  import_tasks: configure.yml
+- name: run Apache server
+  import_tasks: run.yml
 ...

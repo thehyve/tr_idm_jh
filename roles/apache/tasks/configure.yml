@@ -1,0 +1,18 @@
+---
+- name: make sure that apache is installed
+  dnf:
+    name: "{{ item }}"
+    state: present
+  loop:
+  - httpd
+  - mod_ssl
+  - openssl
+- name: create the configuration for jupyterhub server non ssl
+  template:
+    src: jh_non_ssl.conf.j2
+    dest: /etc/httpd/conf.d/jh_non_ssl.conf
+- name: create the configuration for jupyterhub server ssl
+  template:
+    src: jh_ssl.conf.j2
+    dest: /etc/httpd/conf.d/jh_ssl.conf
+...
