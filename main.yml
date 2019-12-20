@@ -7,6 +7,9 @@
   - name: Configure IDM client
     include_role:
       name: ipaclient
+  - name: Configure Apache
+    include_role:
+      name: apache
   - name: install jupyter
     include_role:
       name: jupyter

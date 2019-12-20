@@ -1,0 +1,28 @@
+---
+- name: Register HTTP service in IDM
+  ipa_service:
+    name: "HTTP/{{ inventory_hostname }}"
+    ipa_pass: "{{ ipaadmin_password }}"
+    ipa_user: "{{ ipaadmin_principal }}"
+    state: present
+- name: Create a directory for certificates
+  file:
+    path: /etc/pki/http
+    state: directory
+- name: Issue certificate for http
+  command:
+    argv:
+    - "ipa-getcert"
+    - "request"
+    - "-k"
+    - "/etc/pki/http/http.key"
+    - "-f"
+    - "/etc/pki/http/http.crt"
+    - "-N"
+    - "CN={{ inventory_hostname }}"
+    - "-K"
+    - "HTTP/{{ inventory_hostname }}"
+    - "-w"
+    - "-v"
+    creates: /etc/pki/http/http.crt
+...

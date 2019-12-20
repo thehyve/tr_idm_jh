@@ -1,0 +1,5 @@
+---
+# tasks file for apache
+- name: Register service IDM and issue certificates
+  import_tasks: register.yml
+...
