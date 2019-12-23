@@ -1,0 +1,6 @@
+---
+- name: install required packages
+  dnf:
+    name: podman
+    state: present
+...

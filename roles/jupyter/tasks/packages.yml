@@ -16,6 +16,7 @@
   - jupyterhub
   - jupyterhub-systemdspawner
   - jupyterlab
+  - psycopg2-binary
 - name: install configurable proxy
   npm:
     name: configurable-http-proxy

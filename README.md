@@ -157,6 +157,8 @@ We need to define values for some variables:
 * `remote_user` - optional. The default user for OS images in Hetzner cloud is `root`;
 * `server_image` - optional. A name of OS image, the default value defined in the code;
 * `domain` - __required__. A name for domain zone that is managed by IDM system;
+* `pgdata` - optional, a location for the database files;
+* `pgversion` - optional, a version for PostgreSQL RDBMS.
 
 There are several way to do that:
 
@@ -197,11 +199,13 @@ After we are done with previous steps, we can:
 ### Configuring and running FreeIPA services
 
 At the last step Terraform will create (update) `inventory.yml` file from `inventory.template`.
-This file defines values for all needed variables except 2 most important ones:
+This file defines values for all needed variables except the important ones:
 * a username of an account with priveleges sufficient to add a host to IDM as a client;
-* a password for that user.
+* a password for that user;
+* a database owner name;
+* a password for database;
 
-These 2 values shoud be kept in secret.
+These values shoud be kept in secret.
 
 There several way to pass these values to our ansible playbook:
 * passing them as `--extra-vars` parameter to `ansible-playbook` command, if we are sure that our CLI history is a safe place;
@@ -215,6 +219,8 @@ There several way to pass these values to our ansible playbook:
    ---
    ipaadmin_principal: "username"
    ipaadmin_password: "password"
+   postgres_password: "pg_password"
+   postgres_user: "pg_user"
    ...
    ```
 
