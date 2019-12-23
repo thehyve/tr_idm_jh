@@ -1,0 +1,6 @@
+---
+- name: create configuration for jupyterhub
+  template:
+    src: "jupyterhub_config.py.j2"
+    dest: "/opt/jupyter/etc/jupyterhub_config.py"
+...
