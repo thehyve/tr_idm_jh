@@ -48,7 +48,7 @@ variable "domain" {
 variable "pgdata" {
   type = string
   description = "A location for database files"
-  default = "/var/lib/postgresql/data/pgdata"
+  default = "/var/lib/postgresql/data"
 }
 variable "pgversion" {
   type = string
