@@ -1,0 +1,23 @@
+[Unit]
+Description=PostgreSQL container
+After=network-online.target
+Wants=network-online.target
+[Service]
+Restart=on-abnormal
+ExecStartPre=-/usr/bin/podman kill postgres-container
+ExecStartPre=-/usr/bin/podman rm postgres-container
+ExecStartPre=-/usr/bin/podman pull docker.io/library/postgres:{{ pgversion }}
+ExecStart=/usr/bin/podman run --rm \
+                              --interactive \
+                              --tty \
+                              --name=postgres-container \
+                              --publish=127.0.0.1:5432:5432 \
+                              --env=POSTGRES_PASSWORD={{ postgres_password }} \
+                              --env=POSTGRES_USER={{ postgres_user }} \
+                              --env=POSTGRES_DB=jupyter \
+                              --env=PGDATA={{ pgdata }}/pgdata \
+                              --volume=pgdata:{{ pgdata }} \
+                              docker.io/library/postgres:{{ pgversion }}
+ExecStop=/usr/bin/podman stop postgres-container
+[Install]
+WantedBy=multi-user.target

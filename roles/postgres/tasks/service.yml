@@ -1,0 +1,12 @@
+---
+- name: Create systemd unit file to run postgres
+  template:
+    src: postgres.service.j2
+    dest: /etc/systemd/system/postgres.service
+- name: Run the postgres systemd service
+  systemd:
+    name: postgres.service
+    daemon_reload: yes
+    enabled: yes
+    state: started
+...

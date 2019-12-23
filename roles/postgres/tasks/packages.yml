@@ -3,4 +3,7 @@
   dnf:
     name: podman
     state: present
+- name: pull Postgres image
+  podman_image:
+    name: "docker.io/library/postgres:{{ pgversion }}"
 ...

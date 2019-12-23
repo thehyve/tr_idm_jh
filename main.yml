@@ -10,6 +10,9 @@
   - name: Configure Apache
     include_role:
       name: apache
+  - name: Install PostgreSQL
+    include_role:
+      name: postgres
   - name: install jupyter
     include_role:
       name: jupyter

@@ -1,2 +1,6 @@
 ---
 # tasks file for postgres
+- name: Become sure that we have postgres image and are able to run postgres container
+  import_tasks: packages.yml
+- name: Run postgres as a service
+  import_tasks: service.yml
