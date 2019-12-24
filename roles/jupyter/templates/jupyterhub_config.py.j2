@@ -87,7 +87,7 @@
 #    - default: jupyterhub.auth.PAMAuthenticator
 #    - dummy: jupyterhub.auth.DummyAuthenticator
 #    - pam: jupyterhub.auth.PAMAuthenticator
-#c.JupyterHub.authenticator_class = 'jupyterhub.auth.PAMAuthenticator'
+c.JupyterHub.authenticator_class = 'jupyterhub.auth.PAMAuthenticator'
 
 ## The base URL of the entire application.
 #
@@ -102,6 +102,7 @@
 #
 #  This is the address on which the proxy will bind. Sets protocol, ip, base_url
 #c.JupyterHub.bind_url = 'http://:8000'
+c.JupyterHub.bind_url = 'http://127.0.0.1:8000'
 
 ## Whether to shutdown the proxy when the Hub shuts down.
 #
@@ -125,7 +126,7 @@
 #  shutdown the Hub, leaving everything else running.
 #
 #  The Hub should be able to resume from database state.
-#c.JupyterHub.cleanup_servers = True
+c.JupyterHub.cleanup_servers = True
 
 ## Maximum number of concurrent users that can be spawning at a time.
 #
@@ -142,7 +143,7 @@
 #  their own.
 #
 #  If set to 0, no limit is enforced.
-#c.JupyterHub.concurrent_spawn_limit = 100
+c.JupyterHub.concurrent_spawn_limit = 100
 
 ## The config file to load
 #c.JupyterHub.config_file = 'jupyterhub_config.py'
@@ -164,7 +165,7 @@
 #c.JupyterHub.cookie_secret_file = 'jupyterhub_cookie_secret'
 
 ## The location of jupyterhub data files (e.g. /usr/local/share/jupyterhub)
-#c.JupyterHub.data_files_path = '/opt/jupyter/share/jupyterhub'
+c.JupyterHub.data_files_path = '/opt/jupyter/share/jupyterhub'
 
 ## Include any kwargs to pass to the database connection. See
 #  sqlalchemy.create_engine for details.
@@ -172,6 +173,12 @@
 
 ## url for the database. e.g. `sqlite:///jupyterhub.sqlite`
 #c.JupyterHub.db_url = 'sqlite:///jupyterhub.sqlite'
+c.JupyterHub.db_url = 'postgresql://{user}:{password}@{host}:5432/{db}'.format(
+    host="127.0.0.1",
+    password="{{ postgres_password }}",
+    db="jupyter",
+    user="{{ postgres_user }}",
+)
 
 ## log all database transactions. This has A LOT of output
 #c.JupyterHub.debug_db = False
@@ -442,6 +449,10 @@
 #    - localprocess: jupyterhub.spawner.LocalProcessSpawner
 #    - simple: jupyterhub.spawner.SimpleLocalProcessSpawner
 #c.JupyterHub.spawner_class = 'jupyterhub.spawner.LocalProcessSpawner'
+c.JupyterHub.spawner_class = 'systemdspawner.SystemdSpawner'
+c.SystemdSpawner.isolate_tmp = True
+c.SystemdSpawner.isolate_devices = True
+c.SystemdSpawner.disable_user_sudo = True
 
 ## Path to SSL certificate file for the public facing interface of the proxy
 #
@@ -616,6 +627,7 @@
 #  - Start with `/notebooks` instead of `/tree` if `default_url` points to a notebook instead of a directory.
 #  - You can set this to `/lab` to have JupyterLab start by default, rather than Jupyter Notebook.
 #c.Spawner.default_url = ''
+c.Spawner.default_url = '/lab'
 
 ## Disable per-user configuration of single-user servers.
 #
@@ -945,9 +957,3 @@
 
 ## The number of threads to allocate for encryption
 #c.CryptKeeper.n_threads = 2
-c.JupyterHub.db_url = 'postgresql://{user}:{password}@{host}:5432/{db}'.format(
-    host="127.0.0.1",
-    password="{{ postgres_password }}",
-    db="jupyter",
-    user="{{ postgres_user }}",
-)

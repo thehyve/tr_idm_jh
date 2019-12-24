@@ -13,15 +13,22 @@
   </Directory>
 
   ## Logging
-  ErrorLog "/var/log/httpd/{{ inventory_hostname }} ssl_error_ssl.log"
+  ErrorLog "/var/log/httpd/{{ inventory_hostname }}_ssl_error_ssl.log"
   ServerSignature Off
-  CustomLog "/var/log/httpd/{{ inventory_hostname }} ssl_access_ssl.log" combined
+  CustomLog "/var/log/httpd/{{ inventory_hostname }}_ssl_access_ssl.log" combined
+
+  # Use RewriteEngine to handle websocket connection upgrades
+  RewriteEngine On
+  RewriteCond %{HTTP:Connection} Upgrade [NC]
+  RewriteCond %{HTTP:Upgrade} websocket [NC]
+  RewriteRule /(.*) ws://127.0.0.1:8000/$1 [P,L]
 
   ## Proxy rules
-  ProxyRequests Off
-  ProxyPreserveHost Off
-  ProxyPass / http://127.0.0.1:8000/
-  ProxyPassReverse / http://127.0.0.1:8000/
+  <Location "/">
+    ProxyPreserveHost on
+    ProxyPass http://127.0.0.1:8000/
+    ProxyPassReverse http://127.0.0.1:8000/
+  </Location>
 
   ## SSL directives
   SSLEngine on
