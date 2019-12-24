@@ -15,4 +15,9 @@
 - name: wait for reboot
   wait_for_connection:
   when: result.changed
+- name:
+  seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
 ...
