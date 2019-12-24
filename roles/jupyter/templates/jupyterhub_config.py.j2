@@ -945,4 +945,9 @@
 
 ## The number of threads to allocate for encryption
 #c.CryptKeeper.n_threads = 2
-
+c.JupyterHub.db_url = 'postgresql://{user}:{password}@{host}:5432/{db}'.format(
+    host="127.0.0.1",
+    password="{{ postgres_password }}",
+    db="jupyter",
+    user="{{ postgres_user }}",
+)
