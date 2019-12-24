@@ -4,6 +4,8 @@ After=network-online.target
 Wants=network-online.target
 [Service]
 Restart=on-abnormal
-ExecStart=/bin/sh -c 'cd /opt/jupyter && source bin/activate && jupyterhub -f /opt/jupyter/etc/jupyterhub_config.py'
+Environment=PATH=/opt/jupyter/bin:/usr/bin:$PATH
+Environment=VIRTUAL_ENV=/opt/jupyter
+ExecStart=/opt/jupyter/bin/jupyterhub -f /opt/jupyter/etc/jupyterhub_config.py
 [Install]
 WantedBy=multi-user.target

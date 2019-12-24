@@ -5,7 +5,7 @@
     dest: /etc/systemd/system/jupyterhub.service
 - name: Run the postgres systemd service
   systemd:
-    name: postgres.service
+    name: jupyterhub.service
     daemon_reload: yes
     enabled: yes
     state: started
