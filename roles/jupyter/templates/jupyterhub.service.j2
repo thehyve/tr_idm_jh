@@ -1,7 +1,7 @@
 [Unit]
 Description=Jupyterhub service
-After=network-online.target
-Wants=network-online.target
+After=postgres.service
+Wants=postgres.service
 [Service]
 Restart=on-abnormal
 Environment=PATH=/opt/jupyter/bin:/usr/bin:$PATH
