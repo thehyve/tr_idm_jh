@@ -3,4 +3,6 @@
   import_tasks: packages.yml
 - name: create configuration file
   import_tasks: configure.yml
+- name: run jupyterhub
+  import_tasks: service.yml
 ...
