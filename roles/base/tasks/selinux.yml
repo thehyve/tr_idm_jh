@@ -15,9 +15,31 @@
 - name: wait for reboot
   wait_for_connection:
   when: result.changed
-- name:
+- name: allow httpd connect network
   seboolean:
     name: httpd_can_network_connect
     state: yes
     persistent: yes
+- name: check loaded selinux policies
+  command:
+    argv:
+    - "semodule"
+    - "-l"
+  register: selinuxmodules
+  check_mode: no
+  changed_when: False
+- name: copy allownnp policy
+  copy:
+    dest: /tmp/allownnp.pp
+    mode: 0600
+    owner: root
+    src: allownnp.pp
+  when: "selinuxmodules.stdout.find('allownnp') == -1"
+- name: load allownnp policy
+  command:
+    argv:
+    - "semodule"
+    - "-i"
+    - "/tmp/allownnp.pp"
+  when: "selinuxmodules.stdout.find('allownnp') == -1"
 ...
