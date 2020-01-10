@@ -1,0 +1,11 @@
+
+module allownnp 1.0;
+
+require {
+	type init_t;
+	type initrc_t;
+	class process2 nnp_transition;
+}
+
+#============= init_t ==============
+allow init_t initrc_t:process2 nnp_transition;
