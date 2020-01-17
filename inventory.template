@@ -19,6 +19,7 @@ all:
         ipaclient_ntp_pool: "pool.ntp.org"
         ipaclient_ssh_trust_dns: "yes"
         ipasssd_enable_dns_updates: "yes"
+        ipaclient_force_join: "yes"
   vars:
     ansible_user: "${user}"
     ansible_ssh_common_args: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
