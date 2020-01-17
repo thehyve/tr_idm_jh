@@ -1,0 +1,13 @@
+
+module init2nnp 1.0;
+
+require {
+	type ldconfig_t;
+	type initrc_t;
+	type hostname_t;
+	class process2 nnp_transition;
+}
+
+#============= initrc_t ==============
+allow initrc_t hostname_t:process2 nnp_transition;
+allow initrc_t ldconfig_t:process2 nnp_transition;
