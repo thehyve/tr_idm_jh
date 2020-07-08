@@ -12,6 +12,7 @@
   - vim-pathogen
   - tree
   - wget
+  - krb5-pkinit
 - name: install jupyterhub and jupyterlab
   pip:
     name: "{{ item }}"
